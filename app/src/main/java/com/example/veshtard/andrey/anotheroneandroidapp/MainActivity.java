@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
     private int scoreTeamA;
     private int scoreTeamB;
-    private static final SparseIntArray BUTTONS = new SparseIntArray();
 
 
     @Override
@@ -96,37 +98,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTextFor(final TextView textView, final int textId) {
-        textView.setText(String.valueOf(textId));
+        textView.setText(textId);
     }
 
-    private void collectButtons() {
-        BUTTONS.put(R.id.one_point_button, R.string.buttonName1p);
-        BUTTONS.put(R.id.two_points_button, R.string.buttonName2p);
-        BUTTONS.put(R.id.three_points_button, R.string.buttonName3p);
-        BUTTONS.put(R.id.reset_button, R.string.buttonNameReset);
+    private Map<Button, Integer> collectButtons() {
+        final LinearLayout teamA = (LinearLayout) findViewById(R.id.first_team_data);
+        final LinearLayout teamB = (LinearLayout) findViewById(R.id.second_team_data);
+
+        final Map<Button, Integer> buttons = new HashMap<>();
+        buttons.put((Button) teamA.findViewById(R.id.one_point_button), R.string.buttonName1p);
+        buttons.put((Button) teamA.findViewById(R.id.two_points_button), R.string.buttonName2p);
+        buttons.put((Button) teamA.findViewById(R.id.three_points_button), R.string.buttonName3p);
+        buttons.put((Button) teamB.findViewById(R.id.one_point_button), R.string.buttonName1p);
+        buttons.put((Button) teamB.findViewById(R.id.two_points_button), R.string.buttonName2p);
+        buttons.put((Button) teamB.findViewById(R.id.three_points_button), R.string.buttonName3p);
+        buttons.put((Button) findViewById(R.id.reset_button), R.string.buttonNameReset);
+
+        return buttons;
     }
 
     private void setUpButtons() {
-        collectButtons();
-        final int[] teams = {
-                R.id.first_team_data,
-                R.id.second_team_data
-        };
+        final Map<Button, Integer> buttons = collectButtons();
 
-        for (final int teamLayout : teams) {
-            final LinearLayout team = (LinearLayout) findViewById(teamLayout);
+        for (final Map.Entry<Button, Integer> pair : buttons.entrySet()) {
+            final Button button = pair.getKey();
+            final int text = pair.getValue();
 
-            for (int i = 0; i < BUTTONS.size(); i++) {
-                final Button button = (Button) team.findViewById(BUTTONS.keyAt(i));
-                button.setText(BUTTONS.valueAt(i));
-                button.setOnClickListener(new CustomOnClickListener());
+            button.setText(text);
+            button.setOnClickListener(new CustomOnClickListener());
 
-                if (BUTTONS.keyAt(i) == R.id.reset_button) {
-                    final MarginLayoutParams marginLayoutParams = (MarginLayoutParams) button.getLayoutParams();
-                    marginLayoutParams.bottomMargin = 32;
-                    final LayoutParams layoutParams = button.getLayoutParams();
-                    layoutParams.width = LayoutParams.WRAP_CONTENT;
-                }
+            if (button.getId() == R.id.reset_button) {
+                final MarginLayoutParams marginLayoutParams = (MarginLayoutParams) button.getLayoutParams();
+                marginLayoutParams.bottomMargin = 32;
+                final LayoutParams layoutParams = button.getLayoutParams();
+                layoutParams.width = LayoutParams.WRAP_CONTENT;
             }
         }
     }
