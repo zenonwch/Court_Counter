@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        tools:showIn="@layout/activity_main">
+
+
+    <include
+            android:id="@+id/team_name"
+            layout="@layout/team_name_text_view"
+            />
+
+    <include
+            android:id="@+id/team_score"
+            layout="@layout/team_score_text_view"
+            />
+
+    <include
+            android:id="@+id/three_points_button"
+            layout="@layout/button"
+            />
+
+    <include
+            android:id="@+id/two_points_button"
+            layout="@layout/button"
+            />
+
+    <include
+            android:id="@+id/one_point_button"
+            layout="@layout/button"
+            />
+
+</LinearLayout>
