@@ -11,12 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
-    private int scoreTeamA;
-    private int scoreTeamB;
+    private int scoreTeamA = 0;
+    private int scoreTeamB = 0;
 
 
     @Override
@@ -85,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView scoreViewA = findViewById(R.id.first_team_data).findViewById(R.id.team_score);
         final TextView scoreViewB = findViewById(R.id.second_team_data).findViewById(R.id.team_score);
 
-        setTextFor(scoreViewA, scoreTeamA);
-        setTextFor(scoreViewB, scoreTeamB);
+        scoreViewA.setText(String.format(Locale.getDefault(),"%d", scoreTeamA));
+        scoreViewB.setText(String.format(Locale.getDefault(), "%d", scoreTeamB));
     }
 
     private void setTeamNames() {
